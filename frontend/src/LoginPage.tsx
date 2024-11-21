@@ -11,14 +11,14 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[url('frontend/src/assets/fondov.jpeg')] bg-cover bg-center min-h-screen flex flex-col md:flex-row relative overflow-hidden">
       <div className="flex min-h-screen items-center justify-center px-4">
         <div className="w-full max-w-md transform rounded-2xl bg-white p-8 shadow-2xl transition-all">
           {/* Pokemon Logo */}
           <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-red-500 to-white p-1">
+            <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-green-500 to-white p-1">
               <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                <div className="h-12 w-12 rounded-full border-4 border-red-500"></div>
+                <div className="h-12 w-12 rounded-full border-4 border-green-500"></div>
               </div>
             </div>
             <h1 className="mb-2 text-3xl font-bold text-gray-900">Poke Api 2.0</h1>

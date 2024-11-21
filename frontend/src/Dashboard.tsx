@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePollinationsImage } from "@pollinations/react";
+import { Wand2, Loader2 } from "lucide-react";
 
 const Dashboard: React.FC = () => {
     const token = localStorage.getItem("githubToken");
@@ -49,7 +50,7 @@ const Dashboard: React.FC = () => {
 						localStorage.removeItem("githubToken");
 						window.location.href = "/";
 					}}
-					className="px-2 py-1 bg-red-400 text-white font-medium rounded-md focus:outline-none focus:ring-2"
+					className="px-2 py-1 bg-red-00 text-white font-medium rounded-md focus:outline-none focus:ring-2"
 				>log out</button>
 
 				<hr className="border-gray-300 my-8" />
@@ -58,7 +59,7 @@ const Dashboard: React.FC = () => {
             {/* Opciones */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Tipo */}
-                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                <div>
                     <h2 className="text-lg font-semibold text-black mb-4">Tipo</h2>
                     <select
                         className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
@@ -86,7 +87,7 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 {/* Color */}
-                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                <div>
                     <h2 className="text-lg font-semibold text-black mb-4">Color</h2>
                     <select
                         className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
@@ -102,7 +103,7 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 {/* Accesorio */}
-                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                <div>
                     <h2 className="text-lg font-semibold text-black mb-4">Accesorio</h2>
                     <select
                         className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
@@ -119,7 +120,7 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 {/* Hábitat */}
-                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                <div>
                     <h2 className="text-lg font-semibold text-black mb-4">Hábitat</h2>
                     <select
                         className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
