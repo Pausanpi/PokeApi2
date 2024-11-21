@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { usePollinationsImage } from "@pollinations/react";
-import { Wand2, Loader2 } from "lucide-react";
+import { Wand2, LogOut } from "lucide-react";
+import { SelectBox } from "./components/SelectBox.tsx";
+import { GeneratedImage } from "./components/GeneratedImage.tsx";
+import { typeOptions, colorOptions, accessoryOptions, habitatOptions } from "./data/options.tsx";
 
 const Dashboard: React.FC = () => {
-    const token = localStorage.getItem("githubToken");
-
     const [type, setType] = useState<string>("water");
     const [color, setColor] = useState<string>("yellow");
     const [accessory, setAccessory] = useState<string>("glasses");
     const [habitat, setHabitat] = useState<string>("forest");
-
     const [generate, setGenerate] = useState<boolean>(false);
 
     const description = `A Pokémon of type ${type} with a ${color} theme, with a ${accessory}, that lives in the ${habitat} illustrated in a detailed and vibrant art style.`;
@@ -22,144 +22,98 @@ const Dashboard: React.FC = () => {
         nologo: false,
     });
 
-    const handleGenerate = () => {
-        setGenerate(true);
-    };
-
-    if (!token) {
-        return (
-            <div className="flex items-center justify-center h-screen bg-white text-black">
-                <p className="text-xl font-bold border border-red-500 px-6 py-3 rounded-lg shadow-lg">
-                    No has iniciado sesión. Por favor, inicia sesión para continuar.
-                </p>
-            </div>
-        );
-    }
-
     return (
-        <div className="min-h-screen bg-white text-gray-900 p-8">
-            {/* Encabezado */}
-            <header className="text-center mb-12">
-                <h1 className="text-4xl font-bold text-black">
-                    <span className="text-red-500">Poke API 2.0</span> Dashboard
-                </h1>
-                <p className="text-lg mt-2 text-gray-600">Crea y personaliza tu propio Pokémon único.</p>
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 pb-12 sm:pb-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
+                {/* Header */}
+                <header className="text-center mb-8 sm:mb-16 relative">
+                    <div className="">
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem("githubToken");
+                                window.location.href = "/";
+                            }}
+                            className="absolute top-0 right-0 flex items-center px-3 py-1.5 sm:px-4 sm:py-2 
+                                        bg-white/50 text-indigo-600 rounded-lg sm:rounded-xl 
+                                        hover:bg-white/80 transition-all duration-200
+                                        border border-indigo-100 hover:border-indigo-200
+                                        text-sm sm:text-base
+                                        shadow-sm hover:shadow-md"
+                        >
+                            <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                            Cerrar sesión
+                        </button>
+                    </div>
 
-				<button
-					onClick={() => {
-						localStorage.removeItem("githubToken");
-						window.location.href = "/";
-					}}
-					className="px-2 py-1 bg-red-00 text-white font-medium rounded-md focus:outline-none focus:ring-2"
-				>log out</button>
+                    <div className="relative inline-block mt-10">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent 
+                                     bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 
+                                     to-pink-600 mb-3 sm:mb-4">
+                            Poke Api 2.0
+                        </h1>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 
+                                      via-purple-600 to-pink-600 rounded-2xl blur opacity-20 -z-10" />
+                    </div>
+                    
+                    <p className="text-base sm:text-lg text-indigo-950/70 max-w-2xl mx-auto mt-4 sm:mt-6 px-4">
+                        Genera Pokémon únicos combinando diferentes elementos y déjate sorprender por la magia de la IA
+                    </p>
+                </header>
 
-				<hr className="border-gray-300 my-8" />
-            </header>
-
-            {/* Opciones */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* Tipo */}
-                <div>
-                    <h2 className="text-lg font-semibold text-black mb-4">Tipo</h2>
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                    >
-                        <option value="water">Agua</option>
-                        <option value="fire">Fuego</option>
-                        <option value="grass">Planta</option>
-                        <option value="electric">Eléctrico</option>
-                        <option value="steel">Acero</option>
-                        <option value="bug">Bicho</option>
-                        <option value="ghost">Fantasma</option>
-                        <option value="fairy">Hada</option>
-                        <option value="ice">Hielo</option>
-                        <option value="fighting">Lucha</option>
-                        <option value="normal">Normal</option>
-                        <option value="psychic">Psíquico</option>
-                        <option value="rock">Roca</option>
-                        <option value="sinestrous">Siniestro</option>
-                        <option value="ground">Tierra</option>
-                        <option value="poison">Veneno</option>
-                        <option value="flying">Volador</option>
-                    </select>
-                </div>
-
-                {/* Color */}
-                <div>
-                    <h2 className="text-lg font-semibold text-black mb-4">Color</h2>
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                    >
-                        <option value="yellow">Amarillo</option>
-                        <option value="red">Rojo</option>
-                        <option value="green">Verde</option>
-                        <option value="blue">Azul</option>
-                        <option value="pink">Rosa</option>
-                    </select>
-                </div>
-
-                {/* Accesorio */}
-                <div>
-                    <h2 className="text-lg font-semibold text-black mb-4">Accesorio</h2>
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
-                        value={accessory}
-                        onChange={(e) => setAccessory(e.target.value)}
-                    >
-                        <option value="glasses">Gafas</option>
-                        <option value="bow">Lazo</option>
-                        <option value="Scarf">Bufanda</option>
-                        <option value="Cape">Capa</option>
-                        <option value="Necklace">Collar</option>
-                        <option value="crown">Corona</option>
-                    </select>
-                </div>
-
-                {/* Hábitat */}
-                <div>
-                    <h2 className="text-lg font-semibold text-black mb-4">Hábitat</h2>
-                    <select
-                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
-                        value={habitat}
-                        onChange={(e) => setHabitat(e.target.value)}
-                    >
-                        <option value="forest">Bosque</option>
-                        <option value="mountain">Montaña</option>
-                        <option value="desert">Desierto</option>
-                        <option value="ocean">Océano</option>
-                    </select>
-                </div>
-            </div>
-
-            {/* Botón de acción */}
-            <div className="mt-12 text-center">
-                <button
-                    onClick={handleGenerate}
-                    className="px-6 py-3 bg-red-500 text-white text-lg font-semibold rounded-md hover:bg-red-600 transition-all shadow"
-                >
-                    Generar Imagen
-                </button>
-            </div>
-
-            {/* Imagen generada */}
-            {generate && (
-                <div className="mt-10 text-center">
-                    <h2 className="text-2xl font-semibold text-red-500">Tu Pokémon generado</h2>
-                    {imageUrl ? (
-                        <img
-                            src={imageUrl}
-                            alt="Generated Pokémon"
-                            className="mt-6 mx-auto border border-gray-300 rounded-lg shadow-lg"
+                {/* Options Grid */}
+                <div className="max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+                        <SelectBox
+                            title="Tipo"
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                            options={typeOptions}
                         />
-                    ) : (
-                        <p className="text-gray-600">Generando imagen...</p>
-                    )}
+                        <SelectBox
+                            title="Color"
+                            value={color}
+                            onChange={(e) => setColor(e.target.value)}
+                            options={colorOptions}
+                        />
+                        <SelectBox
+                            title="Accesorio"
+                            value={accessory}
+                            onChange={(e) => setAccessory(e.target.value)}
+                            options={accessoryOptions}
+                        />
+                        <SelectBox
+                            title="Hábitat"
+                            value={habitat}
+                            onChange={(e) => setHabitat(e.target.value)}
+                            options={habitatOptions}
+                        />
+                    </div>
+
+                    {/* Generate Button */}
+                    <div className="text-center mb-8 sm:mb-16">
+                        <button
+                            onClick={() => setGenerate(true)}
+                            className="group relative inline-flex items-center justify-center 
+                                     px-6 sm:px-8 py-3 sm:py-4
+                                     bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                                     text-white text-base sm:text-lg font-bold rounded-xl sm:rounded-2xl
+                                     transition-all duration-300
+                                     hover:scale-[1.02] hover:shadow-xl hover:shadow-indigo-500/25
+                                     active:scale-[0.98]"
+                        >
+                            <Wand2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-pulse" />
+                            Generar Pokémon
+                            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 
+                                          via-purple-600 to-pink-600 rounded-xl sm:rounded-2xl 
+                                          blur opacity-30 group-hover:opacity-50 
+                                          transition-opacity duration-300 -z-10" />
+                        </button>
+                    </div>
+
+                    {/* Generated Image */}
+                    {generate && <GeneratedImage imageUrl={imageUrl} />}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

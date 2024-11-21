@@ -1,5 +1,6 @@
 import React from 'react';
-import { Github } from 'lucide-react';
+import { PokemonLogo } from './components/PokemonLogo.tsx';
+import { GithubButton } from './components/GithubButton.tsx';
 
 const LoginPage: React.FC = () => {
   const clientId = 'Ov23lioZpnEEOsKtxdif';
@@ -11,36 +12,32 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[url('frontend/src/assets/fondov.jpeg')] bg-cover bg-center min-h-screen flex flex-col md:flex-row relative overflow-hidden">
-      <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-md transform rounded-2xl bg-white p-8 shadow-2xl transition-all">
-          {/* Pokemon Logo */}
-          <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gradient-to-br from-green-500 to-white p-1">
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                <div className="h-12 w-12 rounded-full border-4 border-green-500"></div>
-              </div>
-            </div>
-            <h1 className="mb-2 text-3xl font-bold text-gray-900">Poke Api 2.0</h1>
-            <p className="text-gray-600">Sign in to create your unique Pokemon!</p>
-          </div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      {/* Animated background elements */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-1/4 top-0 h-96 w-96 animate-blob rounded-full 
+                       bg-gradient-to-br from-indigo-400 to-indigo-300 opacity-20 blur-3xl" />
+        <div className="absolute -right-1/4 top-1/3 h-96 w-96 animate-blob animation-delay-2000 
+                       rounded-full bg-gradient-to-br from-purple-400 to-purple-300 opacity-20 blur-3xl" />
+        <div className="absolute -bottom-1/4 left-1/3 h-96 w-96 animate-blob animation-delay-4000 
+                       rounded-full bg-gradient-to-br from-pink-400 to-pink-300 opacity-20 blur-3xl" />
+      </div>
 
-          {/* Login Button */}
-          <button
-            onClick={handleLogin}
-            className="group relative flex w-full items-center justify-center space-x-3 rounded-lg bg-gray-900 px-4 py-3 text-white transition-all hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-          >
-            <Github className="h-5 w-5" />
-            <span className="font-medium">Continue with GitHub</span>
-          </button>
+      {/* Content */}
+      <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md transform rounded-2xl backdrop-blur-sm 
+                       bg-white/80 p-6 sm:p-8 shadow-2xl transition-all 
+                       hover:shadow-indigo-500/10">
+          <PokemonLogo />
 
-          {/* Footer */}
-          <p className="mt-6 text-center text-sm text-gray-600">
-            By signing in, you agree to join the world of Pokemon AI generation
+          <GithubButton onClick={handleLogin} />
+
+          {/* Footer text */}
+          <p className="mt-6 text-center text-xs sm:text-sm text-indigo-950/60">
+            Al iniciar sesión, te unes al mundo de la generación de Pokémon con IA
           </p>
         </div>
       </div>
-
     </div>
   );
 };
