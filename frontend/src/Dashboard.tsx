@@ -2,164 +2,165 @@ import React, { useState } from "react";
 import { usePollinationsImage } from "@pollinations/react";
 
 const Dashboard: React.FC = () => {
-  const token = localStorage.getItem("githubToken");
-  const [type, setType] = useState<string>("agua");
-  const [color, setColor] = useState<string>("amarillo");
-  const [accesory, setAccessory] = useState<string>("none");
-  const [generate, setGenerate] = useState<boolean>(false);
+    const token = localStorage.getItem("githubToken");
 
-  const description = `A Pokémon of type ${type} with a ${color} theme, wearing ${accesory} illustrated in a detailed and vibrant art style.`;
+    const [type, setType] = useState<string>("water");
+    const [color, setColor] = useState<string>("yellow");
+    const [accessory, setAccessory] = useState<string>("glasses");
+    const [habitat, setHabitat] = useState<string>("forest");
 
-  const imageUrl = usePollinationsImage(description, {
-    width: 512,
-    height: 512,
-    seed: Math.floor(Math.random() * 100000),
-    model: "flux",
-    nologo: false
-  });
+    const [generate, setGenerate] = useState<boolean>(false);
 
-  const handleGenerateImage = () => {
-    setGenerate(true);
-  };
+    const description = `A Pokémon of type ${type} with a ${color} theme, with a ${accessory}, that lives in the ${habitat} illustrated in a detailed and vibrant art style.`;
 
-  if (!token) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-red-50 to-white">
-        <div className="rounded-xl bg-white p-8 shadow-lg">
-          <p className="text-lg font-medium text-gray-600">Please log in to continue</p>
-        </div>
-      </div>
-    );
-  }
+    const imageUrl = usePollinationsImage(description, {
+        width: 512,
+        height: 512,
+        seed: Math.floor(Math.random() * 100000),
+        model: "flux",
+        nologo: false,
+    });
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-yellow-50 to-blue-50 px-4 py-12">
-      <div className="mx-auto max-w-4xl">
-        {/* Header Section */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-3 text-5xl font-bold text-gray-800">
-            Poke Api
-          </h1>
-          <p className="text-lg text-gray-600">
-            Create your unique Pokémon using artificial intelligence
-          </p>
-        </div>
+    const handleGenerate = () => {
+        setGenerate(true);
+    };
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Form Section */}
-          <div className="rounded-2xl bg-white p-6 shadow-xl backdrop-blur-sm">
-            <div className="space-y-6">
-              {/* Type Selection */}
-              <div className="group">
-                <label htmlFor="type-select" className="block text-sm font-medium text-gray-700">
-                  Choose Type
-                </label>
-                <select
-                  id="type-select"
-                  className="mt-2 block w-full rounded-lg border-2 border-gray-200 bg-white px-4 py-3 text-gray-700 transition-colors focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                >
-                  <option value="water">Water</option>
-                  <option value="fire">Fire</option>
-                  <option value="grass">Grass</option>
-                  <option value="electric">Electric</option>
-                </select>
-              </div>
-
-              {/* Color Selection */}
-              <div className="group">
-                <label htmlFor="color-select" className="block text-sm font-medium text-gray-700">
-                  Select Color
-                </label>
-                <select
-                  id="color-select"
-                  className="mt-2 block w-full rounded-lg border-2 border-gray-200 bg-white px-4 py-3 text-gray-700 transition-colors focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                >
-                  <option value="yellow">Yellow</option>
-                  <option value="red">Red</option>
-                  <option value="green">Green</option>
-                  <option value="blue">Blue</option>
-                  <option value="pink">Pink</option>
-                </select>
-              </div>
-
-              {/* Accessory Selection */}
-              <div className="group">
-                <label htmlFor="accessory-select" className="block text-sm font-medium text-gray-700">
-                  Choose Accessory
-                </label>
-                <select
-                  id="accessory-select"
-                  className="mt-2 block w-full rounded-lg border-2 border-gray-200 bg-white px-4 py-3 text-gray-700 transition-colors focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200"
-                  value={accesory}
-                  onChange={(e) => setAccessory(e.target.value)}
-                >
-                  <option value="none">None</option>
-                  <option value="hat">Hat</option>
-                  <option value="scarf">Scarf</option>
-                  <option value="glasses">Glasses</option>
-                  <option value="crown">Crown</option>
-                </select>
-              </div>
-
-              {/* Generate Button */}
-              <button
-                onClick={handleGenerateImage}
-                className="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-white shadow-lg transition-all hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                <span className="relative z-10 flex items-center justify-center text-lg font-medium">
-                  Generate Pokemon
-                  <svg
-                    className="ml-2 h-5 w-5 transition-transform group-hover:rotate-180"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                </span>
-              </button>
+    if (!token) {
+        return (
+            <div className="flex items-center justify-center h-screen bg-white text-black">
+                <p className="text-xl font-bold border border-red-500 px-6 py-3 rounded-lg shadow-lg">
+                    No has iniciado sesión. Por favor, inicia sesión para continuar.
+                </p>
             </div>
-          </div>
+        );
+    }
 
-          {/* Preview Section */}
-          <div className="rounded-2xl bg-white p-6 shadow-xl backdrop-blur-sm">
-            <h2 className="mb-6 text-xl font-semibold text-gray-800">Preview</h2>
-            {generate ? (
-              imageUrl ? (
-                <div className="overflow-hidden rounded-xl bg-gray-50 p-2">
-                  <img
-                    src={imageUrl}
-                    alt="Generated Pokémon"
-                    className="h-full w-full rounded-lg object-cover shadow-md transition-transform duration-300 hover:scale-105"
-                  />
+    return (
+        <div className="min-h-screen bg-white text-gray-900 p-8">
+            {/* Encabezado */}
+            <header className="text-center mb-12">
+                <h1 className="text-4xl font-bold text-black">
+                    <span className="text-red-500">Poke API 2.0</span> Dashboard
+                </h1>
+                <p className="text-lg mt-2 text-gray-600">Crea y personaliza tu propio Pokémon único.</p>
+
+				<button
+					onClick={() => {
+						localStorage.removeItem("githubToken");
+						window.location.href = "/";
+					}}
+					className="px-2 py-1 bg-red-400 text-white font-medium rounded-md focus:outline-none focus:ring-2"
+				>log out</button>
+
+				<hr className="border-gray-300 my-8" />
+            </header>
+
+            {/* Opciones */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Tipo */}
+                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                    <h2 className="text-lg font-semibold text-black mb-4">Tipo</h2>
+                    <select
+                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                    >
+                        <option value="water">Agua</option>
+                        <option value="fire">Fuego</option>
+                        <option value="grass">Planta</option>
+                        <option value="electric">Eléctrico</option>
+                        <option value="steel">Acero</option>
+                        <option value="bug">Bicho</option>
+                        <option value="ghost">Fantasma</option>
+                        <option value="fairy">Hada</option>
+                        <option value="ice">Hielo</option>
+                        <option value="fighting">Lucha</option>
+                        <option value="normal">Normal</option>
+                        <option value="psychic">Psíquico</option>
+                        <option value="rock">Roca</option>
+                        <option value="sinestrous">Siniestro</option>
+                        <option value="ground">Tierra</option>
+                        <option value="poison">Veneno</option>
+                        <option value="flying">Volador</option>
+                    </select>
                 </div>
-              ) : (
-                <div className="flex h-64 items-center justify-center rounded-xl bg-gray-50">
-                  <div className="text-center">
-                    <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-                    <p className="text-gray-600">Generating your Pokemon...</p>
-                  </div>
+
+                {/* Color */}
+                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                    <h2 className="text-lg font-semibold text-black mb-4">Color</h2>
+                    <select
+                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                    >
+                        <option value="yellow">Amarillo</option>
+                        <option value="red">Rojo</option>
+                        <option value="green">Verde</option>
+                        <option value="blue">Azul</option>
+                        <option value="pink">Rosa</option>
+                    </select>
                 </div>
-              )
-            ) : (
-              <div className="flex h-64 items-center justify-center rounded-xl bg-gray-50">
-                <p className="text-gray-400">Your Pokemon will appear here</p>
-              </div>
+
+                {/* Accesorio */}
+                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                    <h2 className="text-lg font-semibold text-black mb-4">Accesorio</h2>
+                    <select
+                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
+                        value={accessory}
+                        onChange={(e) => setAccessory(e.target.value)}
+                    >
+                        <option value="glasses">Gafas</option>
+                        <option value="bow">Lazo</option>
+                        <option value="Scarf">Bufanda</option>
+                        <option value="Cape">Capa</option>
+                        <option value="Necklace">Collar</option>
+                        <option value="crown">Corona</option>
+                    </select>
+                </div>
+
+                {/* Hábitat */}
+                <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow hover:shadow-md">
+                    <h2 className="text-lg font-semibold text-black mb-4">Hábitat</h2>
+                    <select
+                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500"
+                        value={habitat}
+                        onChange={(e) => setHabitat(e.target.value)}
+                    >
+                        <option value="forest">Bosque</option>
+                        <option value="mountain">Montaña</option>
+                        <option value="desert">Desierto</option>
+                        <option value="ocean">Océano</option>
+                    </select>
+                </div>
+            </div>
+
+            {/* Botón de acción */}
+            <div className="mt-12 text-center">
+                <button
+                    onClick={handleGenerate}
+                    className="px-6 py-3 bg-red-500 text-white text-lg font-semibold rounded-md hover:bg-red-600 transition-all shadow"
+                >
+                    Generar Imagen
+                </button>
+            </div>
+
+            {/* Imagen generada */}
+            {generate && (
+                <div className="mt-10 text-center">
+                    <h2 className="text-2xl font-semibold text-red-500">Tu Pokémon generado</h2>
+                    {imageUrl ? (
+                        <img
+                            src={imageUrl}
+                            alt="Generated Pokémon"
+                            className="mt-6 mx-auto border border-gray-300 rounded-lg shadow-lg"
+                        />
+                    ) : (
+                        <p className="text-gray-600">Generando imagen...</p>
+                    )}
+                </div>
             )}
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Dashboard;
