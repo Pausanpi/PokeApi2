@@ -1,15 +1,38 @@
+/* import React from "react";
+
+const Dashboard: React.FC = () => {
+  const token = localStorage.getItem("githubToken");
+
+  if (!token) {
+    return <p>No has iniciado sesión.</p>;
+  }
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Bienvenido a tu Dashboard</h1>
+      <p>Token de acceso: {token}</p>
+    </div>
+  );
+};
+
+export default Dashboard;
+ */
+
 import React, { useState } from "react";
 import { usePollinationsImage } from "@pollinations/react";
 
-function App() {
+const Dashboard: React.FC = () => {
+  const token = localStorage.getItem("githubToken");
+
+  // Estados para la generación de imágenes
   const [type, setType] = useState<string>("agua");
   const [color, setColor] = useState<string>("amarillo");
-  const [generate, setGenerate] = useState<boolean>(false); // Control para iniciar la generación
+  const [generate, setGenerate] = useState<boolean>(false);
 
   // Generar descripción a partir de los inputs
   const description = `A Pokémon of type ${type} with a ${color} theme, illustrated in a detailed and vibrant art style.`;
 
-  // Hook de Pollinations: siempre lo llamamos, pero la descripción y parámetros se actualizan dinámicamente
+  // Hook de Pollinations
   const imageUrl = usePollinationsImage(description, {
     width: 512,
     height: 512,
@@ -17,16 +40,23 @@ function App() {
     model: "flux",
   });
 
+  // Manejar la generación de la imagen
   const handleGenerateImage = () => {
-    setGenerate(true); // Cambiar el estado para iniciar el proceso
+    setGenerate(true);
   };
 
-  return (
-    <>
-      <h1 className="text-2xl text-red-400">Poke Api</h1>
+  if (!token) {
+    return <p>No has iniciado sesión.</p>;
+  }
 
-      <div>
-        {/* Input para seleccionar tipo */}
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Bienvenido a Poke Api 2.0</h1>
+
+      <div style={{ marginTop: "20px" }}>
+        <h1 className="text-2xl text-red-400">Poke API</h1>
+
+        {/* Selección del tipo */}
         <div className="mb-4">
           <label htmlFor="type-select" className="block text-sm font-medium text-gray-700">
             Selecciona un Tipo
@@ -37,14 +67,14 @@ function App() {
             value={type}
             onChange={(e) => setType(e.target.value)}
           >
-            <option value="agua">Agua</option>
-            <option value="fuego">Fuego</option>
-            <option value="planta">Planta</option>
-            <option value="electrico">Eléctrico</option>
+            <option value="water">Agua</option>
+            <option value="fire">Fuego</option>
+            <option value="grass">Planta</option>
+            <option value="electric">Eléctrico</option>
           </select>
         </div>
 
-        {/* Input para seleccionar color */}
+        {/* Selección del color */}
         <div className="mb-4">
           <label htmlFor="color-select" className="block text-sm font-medium text-gray-700">
             Selecciona un Color
@@ -55,15 +85,15 @@ function App() {
             value={color}
             onChange={(e) => setColor(e.target.value)}
           >
-            <option value="amarillo">Amarillo</option>
-            <option value="rojo">Rojo</option>
-            <option value="verde">Verde</option>
-            <option value="azul">Azul</option>
-            <option value="rosa">Rosa</option>
+            <option value="yellow">Amarillo</option>
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="blue">Azul</option>
+            <option value="pink">Rosa</option>
           </select>
         </div>
 
-        {/* Botón para generar imagen */}
+        {/* Botón para generar la imagen */}
         <button
           onClick={handleGenerateImage}
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -87,8 +117,8 @@ function App() {
           )
         ) : null}
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default App;
+export default Dashboard;
