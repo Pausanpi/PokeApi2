@@ -8,7 +8,7 @@ import { typeOptions, colorOptions, accessoryOptions, habitatOptions } from "./d
 const Dashboard: React.FC = () => {
     const [type, setType] = useState<string>("water");
     const [color, setColor] = useState<string>("yellow");
-    const [accessory, setAccessory] = useState<string>("glasses");
+    const [accessory, setAccessory] = useState<string>("none");
     const [habitat, setHabitat] = useState<string>("forest");
     const [generate, setGenerate] = useState<boolean>(false);
 
@@ -111,7 +111,22 @@ const Dashboard: React.FC = () => {
                     </div>
 
                     {/* Generated Image */}
-                    {generate && <GeneratedImage imageUrl={imageUrl} />}
+                    {/* {generate && <GeneratedImage imageUrl={imageUrl} />} */}
+					{generate && (
+						<div className="text-center">
+							<GeneratedImage imageUrl={imageUrl} />
+							<a
+								href={imageUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								download="pokemon_generated.png"
+								className="mt-4 inline-block px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-lg
+										hover:bg-indigo-700 transition-all duration-200"
+							>
+								Descargar imagen
+							</a>
+						</div>
+					)}
                 </div>
             </div>
         </div>

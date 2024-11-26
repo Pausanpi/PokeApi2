@@ -27,6 +27,7 @@ export const typeOptions = [
   ];
   
   export const accessoryOptions = [
+	{ value: "none", label: "🚫 Nada"},
 	{ value: "glasses", label: "👓 Gafas" },
 	{ value: "bow", label: "🎀 Lazo" },
 	{ value: "Scarf", label: "🧣 Bufanda" },
